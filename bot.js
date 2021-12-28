@@ -1,14 +1,7 @@
 /* Copyright (C) 2020 Yusuf Usta.
-
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-
-WhatsAsena - Yusuf Usta
 */
 
-const fs = require("fs");
 const path = require("path");
-const events = require("./events");
 const chalk = require('chalk');
 const config = require('./config');
 const simpleGit = require('simple-git');
@@ -19,9 +12,31 @@ const { getMessage } = require("./plugins/sql/greetings");
 const git = simpleGit();
 const axios = require('axios');
 const got = require('got');
+const moment = require("moment-timezone")
+const speed = require('performance-now')
+const { spawn, exec, execSync } = require("child_process")
+const ffmpeg = require('fluent-ffmpeg')
+const twitterGetUrl = require("twitter-url-direct")
+const brainly = require('brainly-scraper')
+const translate = require("@vitalets/google-translate-api");
+const { EmojiAPI } = require("emoji-api")
+const emoji = new EmojiAPI()
+const Math_js = require('mathjs')
+const _gis = require('g-i-s')
+const fetch = require('node-fetch');
+const request = require('request');
+const yts = require( 'yt-search')
+const ms = require('parse-ms')
+const toMs = require('ms')
+const axios = require("axios")
+const fs = require("fs-extra")
+const crypto = require('crypto')
+const { promisify, util } = require('util')
+const qrcodes = require('qrcode');
+const googleIt = require('google-it')
+const os = require('os');
+const hx = require('hxz-api')
 
-const Language = require('./language');
-const Lang = Language.getString('updater');
 
 // Sql
 const WhatsAsenaDB = config.DATABASE.define('WhatsAsena', {
@@ -140,7 +155,7 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp...')}`);
         });
 
         console.log(
-            chalk.green.bold('✅ Julie Mwol working!')
+            chalk.green.bold('✅ whatsbot working!')
         );
         await conn.sendMessage(
             conn.user.jid,
@@ -315,19 +330,8 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp...')}`);
                         try {
                             await command.function(whats, match);
                         } catch (error) {
-                            if (config.LANG == 'TR' || config.LANG == 'AZ') {
-                                await conn.sendMessage(conn.user.jid, '-- HATA RAPORU [WHATSASENA] --' + 
-                                    '\n*WhatsAsena bir hata gerçekleşti!*'+
-                                    '\n_Bu hata logunda numaranız veya karşı bir tarafın numarası olabilir. Lütfen buna dikkat edin!_' +
-                                    '\n_Yardım için Telegram grubumuza yazabilirsiniz._' +
-                                    '\n_Bu mesaj sizin numaranıza (kaydedilen mesajlar) gitmiş olmalıdır._\n\n' +
-                                    'Gerçekleşen Hata: ' + error + '\n\n'
+                            await conn.sendMessage(conn.user.jid, '*ERROR 🥵 : ' + error + '*' 
                                     , MessageType.text);
-                            } else {
-                                await conn.sendMessage(conn.user.jid, '*~_________~ 𝕁𝕦𝕝𝕚𝕖𝕄𝕨𝕠𝕝 ~______~*' +
-                                    '\n\n*🧞‍♂️ ' + error + '*\n\n*Support group*\nchat.whatsapp.com/EWLP9VPgYmgGff6NORWSKk ' 
-                                    , MessageType.text);
-                            }
                         }
                     }
                 }
