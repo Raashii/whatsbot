@@ -18,7 +18,7 @@ class StringSession {
 
     deCrypt(string = undefined) {
 
-        if ('ZARA_SESSION' in process.env && string === undefined) {
+        if ('SESSION' in process.env && string === undefined) {
 
             string = process.env.STRING_SESSION;
 
@@ -46,7 +46,7 @@ class StringSession {
 
     createStringSession(dict) {
 
-        return 'Zara;;;' + Buffer.from(JSON.stringify(dict)).toString('base64');
+        return 'WHATS;;;' + Buffer.from(JSON.stringify(dict)).toString('base64');
 
     }
 
