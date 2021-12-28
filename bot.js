@@ -195,6 +195,15 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp...')}`);
         const from = mek.key.remoteJid
         const type = Object.keys(mek.message)[0]        
         const isGroup = from.endsWith('@g.us')
+
+// Group
+        const groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : ''
+        const groupName = m.isGroup ? groupMetadata.subject : ''
+        const participants = m.isGroup ? await groupMetadata.participants : ''
+        const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : ''
+	const isBotAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
+        const isGroupAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
+
         if (msg.key && msg.key.remoteJid == 'status@broadcast') return;
 
         if (config.NO_ONLINE) {
